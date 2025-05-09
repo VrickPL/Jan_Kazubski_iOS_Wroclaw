@@ -51,10 +51,24 @@ struct ProductView: View {
     
     private var priceAndQuantity: some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text(product.price)
-                .font(.title3)
-                .fontWeight(.bold)
-                .foregroundColor(.red)
+            if let discount = product.promotions.first {
+                HStack(spacing: 8) {
+                    Text(discount.value)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundColor(.red)
+                    
+                    Text(product.price)
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                        .strikethrough()
+                }
+            } else {
+                Text(product.price)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(.red)
+            }
 
             HStack(spacing: 0) {
                 Button {
