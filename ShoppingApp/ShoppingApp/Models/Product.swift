@@ -32,7 +32,12 @@ struct Product: Identifiable, Decodable {
 }
 
 struct Promotion: Decodable {
-    let type: String
+    let type: PromotionType
     let value: String
+}
+
+enum PromotionType: String, Decodable {
+    case discount
+    case percentage
 }
 

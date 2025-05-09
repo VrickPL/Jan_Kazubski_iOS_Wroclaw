@@ -50,22 +50,38 @@ struct ProductView: View {
     
     private var priceAndQuantity: some View {
         VStack(alignment: .leading, spacing: 2) {
-            if let discount = product.promotions.first {
-                HStack(spacing: 8) {
-                    Text(discount.value)
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
-                    
-                    Text(product.price)
-                        .font(.footnote)
-                        .foregroundColor(.gray)
-                        .strikethrough()
+            if let promotion = product.promotions.first {
+                switch promotion.type {
+                case .percentage:
+                    HStack(spacing: 8) {
+                        Text(product.price)
+                            .font(.title3)
+                            .bold()
+                            .foregroundColor(.red)
+                            .strikethrough()
+                        
+                        Text("-\(promotion.value)")
+                            .font(.title3)
+                            .bold()
+                            .foregroundColor(.red)
+                    }
+                case .discount:
+                    HStack(spacing: 8) {
+                        Text(promotion.value)
+                            .font(.title3)
+                            .bold()
+                            .foregroundColor(.red)
+                        
+                        Text(product.price)
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                            .strikethrough()
+                    }
                 }
             } else {
                 Text(product.price)
                     .font(.title3)
-                    .fontWeight(.bold)
+                    .bold()
                     .foregroundColor(.red)
             }
 
@@ -100,7 +116,7 @@ struct ProductView: View {
                         .frame(maxWidth: .infinity, maxHeight: 30)
                         .background(Color.yellow)
                 }
-                .disabled(quantity == product.inStock)
+                .disabled(quantity >= product.inStock)
             }
             .clipShape(RoundedRectangle(cornerRadius: 5))
         }
@@ -138,7 +154,7 @@ private struct ProductImage: View {
         id: "f0e9d8c7-b6a5-4321-fedc-ba9876543210",
         description: "Stainless Steel Water Bottle",
         price: "22.50 £",
-        promotions: [Promotion(type: "discount", value: "5.00 £")],
+        promotions: [Promotion(type: PromotionType.discount, value: "5.00 £")],
         isFavorite: false,
         inStock: 120,
         imageName: "bottle.png"
