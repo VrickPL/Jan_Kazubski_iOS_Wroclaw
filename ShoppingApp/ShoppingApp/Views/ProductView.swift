@@ -36,7 +36,7 @@ struct ProductView: View {
             .padding(10)
         }
         .frame(height: 150)
-        .overlay(favoriteButton.padding(5), alignment: .topLeading)
+        .overlay(favoriteButton, alignment: .topLeading)
         .background(Color.yellow.opacity(0.1))
         .cornerRadius(10)
     }
@@ -128,7 +128,10 @@ struct ProductView: View {
         } label: {
             Image(systemName: isFavorite ? "heart.fill" : "heart")
                 .foregroundColor(.blue)
+                .padding(4)
+                .background(Circle().foregroundStyle(Color.backgroundPrimary))
         }
+        .padding(3)
     }
 }
 
