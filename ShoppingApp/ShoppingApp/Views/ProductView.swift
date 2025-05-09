@@ -39,7 +39,6 @@ struct ProductView: View {
         .overlay(favoriteButton.padding(5), alignment: .topLeading)
         .background(Color.yellow.opacity(0.1))
         .cornerRadius(10)
-        .padding()
     }
     
     private var productImage: some View {

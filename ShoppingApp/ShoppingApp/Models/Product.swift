@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct ProductResponse: Decodable {
+    let items: [Product]
+}
+
 struct Product: Identifiable, Decodable {
     let id: String
     let description: String
