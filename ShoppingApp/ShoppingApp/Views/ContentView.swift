@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    init() {
+        UIScrollView.appearance().delaysContentTouches = false
+    }
+    
     var body: some View {
         ProductList()
     }
