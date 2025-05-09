@@ -13,7 +13,19 @@ struct ContentView: View {
     }
     
     var body: some View {
-        ProductList()
+        TabView {
+            ProductList()
+                .tabItem {
+                    Image(systemName: "square.grid.3x3.fill")
+                    Text("Browse")
+                }
+            
+            CheckoutView()
+                .tabItem {
+                    Image(systemName: "clock.fill")
+                    Text("Checkout")
+                }
+        }
     }
 }
 
