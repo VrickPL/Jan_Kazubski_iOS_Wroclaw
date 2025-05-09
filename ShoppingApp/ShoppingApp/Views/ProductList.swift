@@ -21,6 +21,8 @@ struct ProductList: View {
                     }
                 } else if let error = viewModel.error {
                     ErrorView(error: error, onRetry: viewModel.refreshProducts)
+                } else if viewModel.products.isEmpty {
+                    //TODO: show info
                 } else {
                     ScrollView {
                         LazyVStack(spacing: 16) {

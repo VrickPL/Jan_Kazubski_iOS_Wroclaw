@@ -9,7 +9,30 @@ import SwiftUI
 
 struct CheckoutView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {
+                ScrollView {
+                    Color.purple.frame(height: 700)
+                }
+                
+                Button {
+                    // TODO: show alert
+                } label: {
+                    HStack {
+                        Spacer()
+                        Text("Checkout")
+                            .foregroundStyle(.black)
+                        Spacer()
+                    }
+                    .padding(12)
+                    .background(Color.yellow)
+                    .cornerRadius(10)
+                }
+                .padding(.vertical, 10)
+                .padding(.horizontal)
+            }
+            .navigationTitle("Checkout")
+        }
     }
 }
 
