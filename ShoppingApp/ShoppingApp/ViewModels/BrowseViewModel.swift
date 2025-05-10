@@ -12,37 +12,41 @@ final class BrowseViewModel: ObservableObject {
     @Published var error: Error? = nil
     @Published var isLoading = false
     
+    var fileLoader: (String, String) throws -> Data = { resource, fileExtension in
+        guard let url = Bundle.main.url(forResource: resource, withExtension: fileExtension) else {
+            throw ProductListError.missingFile
+        }
+        return try Data(contentsOf: url)
+    }
+    
     func refreshProducts() {
-        self.products = []
-        self.error = nil
         loadProducts()
     }
     
-    func loadProducts() {
+    func loadProducts(forResource resource: String = "items", fileURL: URL? = nil) {
         guard !isLoading else { return }
         self.isLoading = true
-
-        guard let url = Bundle.main.url(forResource: "items", withExtension: "json") else {
-            self.error = ProductListError.missingFile
-            self.isLoading = false
-            return
-        }
         
         do {
-            let data = try Data(contentsOf: url)
+            let data: Data
+            if let url = fileURL {
+                data = try Data(contentsOf: url)
+            } else {
+                data = try fileLoader(resource, "json")
+            }
             let response = try JSONDecoder().decode(ProductResponse.self, from: data)
             
-            let entities = response.items.map { ProductEntity(from: $0) }
-            self.products = entities
-            self.isLoading = false
+            self.products = response.items.map { ProductEntity(from: $0) }
+            self.error = nil
         } catch {
             self.error = error
-            self.isLoading = false
         }
+        
+        self.isLoading = false
     }
 }
 
-enum ProductListError: LocalizedError {
+enum ProductListError: LocalizedError, CaseIterable {
     case missingFile
     
     var errorDescription: String? {
