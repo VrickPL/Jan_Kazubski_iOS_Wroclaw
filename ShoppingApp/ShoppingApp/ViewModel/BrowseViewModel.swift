@@ -1,5 +1,5 @@
 //
-//  ProductListViewModel.swift
+//  BrowseViewModel.swift
 //  ShoppingApp
 //
 //  Created by Jan Kazubski on 09/05/2025.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ProductListViewModel: ObservableObject {
+final class BrowseViewModel: ObservableObject {
     @Published var products: [ProductEntity] = []
     @Published var error: Error? = nil
     @Published var isLoading = false

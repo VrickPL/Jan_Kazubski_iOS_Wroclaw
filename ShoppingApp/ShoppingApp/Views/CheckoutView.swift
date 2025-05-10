@@ -6,33 +6,44 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CheckoutView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query(filter: #Predicate<ProductEntity> { product in
+        product.quantityInCart > 0
+    }, sort: \.productDescription) private var storedProducts: [ProductEntity]
+
+
     var body: some View {
         NavigationView {
             VStack {
-                ScrollView {
-                    Color.purple.frame(height: 700)
-                }
+                ProductList(products: storedProducts)
                 
-                Button {
-                    // TODO: show alert
-                } label: {
-                    HStack {
-                        Spacer()
-                        Text("Checkout")
-                            .foregroundStyle(.black)
-                        Spacer()
-                    }
-                    .padding(12)
-                    .background(Color.yellow)
-                    .cornerRadius(10)
+                if !storedProducts.isEmpty {
+                    checkoutButton
                 }
-                .padding(.vertical, 10)
-                .padding(.horizontal)
             }
             .navigationTitle("Checkout")
         }
+    }
+    
+    var checkoutButton: some View {
+        Button {
+            // TODO: show alert
+        } label: {
+            HStack {
+                Spacer()
+                Text("Checkout")
+                    .foregroundStyle(.black)
+                Spacer()
+            }
+            .padding(12)
+            .background(Color.yellow)
+            .cornerRadius(10)
+        }
+        .padding(.vertical, 10)
+        .padding(.horizontal)
     }
 }
 

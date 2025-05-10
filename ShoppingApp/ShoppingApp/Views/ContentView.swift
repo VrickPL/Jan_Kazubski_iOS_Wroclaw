@@ -20,7 +20,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            ProductList()
+            BrowseView()
                 .tabItem {
                     Image(systemName: "square.grid.3x3.fill")
                     Text("Browse")
