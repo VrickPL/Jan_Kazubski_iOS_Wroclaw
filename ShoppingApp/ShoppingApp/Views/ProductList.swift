@@ -12,7 +12,9 @@ struct ProductList: View {
     
     var body: some View {
         if products.isEmpty {
-            //TODO: show info
+            Text("The product list is empty.")
+                .font(.headline)
+                .padding()
         } else {
             ScrollView {
                 LazyVStack(spacing: 16) {

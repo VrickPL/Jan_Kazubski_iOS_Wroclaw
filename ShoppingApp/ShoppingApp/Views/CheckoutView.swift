@@ -13,7 +13,14 @@ struct CheckoutView: View {
     @Query(filter: #Predicate<ProductEntity> { product in
         product.quantityInCart > 0
     }, sort: \.productDescription) private var storedProducts: [ProductEntity]
-
+    
+    @State private var isShowingAlert = false
+    
+    var basketProductIDs: String {
+        storedProducts
+            .map { "\($0.id)" }
+            .joined(separator: ", ")
+    }
 
     var body: some View {
         NavigationView {
@@ -25,12 +32,17 @@ struct CheckoutView: View {
                 }
             }
             .navigationTitle("Checkout")
+            .alert("Basket Items", isPresented: $isShowingAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(basketProductIDs)
+            }
         }
     }
     
     var checkoutButton: some View {
         Button {
-            // TODO: show alert
+            isShowingAlert = true
         } label: {
             HStack {
                 Spacer()
