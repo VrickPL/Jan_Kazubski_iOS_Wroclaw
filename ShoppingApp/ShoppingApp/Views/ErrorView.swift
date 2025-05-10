@@ -17,16 +17,22 @@ struct ErrorView: View {
                 Image(systemName: "exclamationmark.triangle")
                 Text("Error")
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("Error")
             .font(.title)
             .bold()
             
             Text(error.localizedDescription)
                 .multilineTextAlignment(.center)
+                .accessibilityLabel("Error details")
+                .accessibilityValue(error.localizedDescription)
             
             Button(action: onRetry) {
                 Text("Try again")
                     .fontWeight(.semibold)
                     .cornerRadius(30)
+                    .accessibilityLabel("Retry button")
+                    .accessibilityHint("Tap to retry the action.")
             }
             .padding(.vertical, 4)
         }

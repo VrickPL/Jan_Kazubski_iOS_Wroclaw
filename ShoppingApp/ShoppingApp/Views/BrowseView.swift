@@ -25,6 +25,8 @@ struct BrowseView: View {
                     VStack {
                         ProgressView()
                             .padding()
+                            .accessibilityLabel("Loading products")
+                            .accessibilityHint("Please wait while products are being loaded.")
                         Spacer()
                     }
                 } else if let error = viewModel.error {
@@ -39,6 +41,8 @@ struct BrowseView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Text(basketValue)
                         .fontWeight(.bold)
+                        .accessibilityLabel("Total basket value")
+                        .accessibilityValue(basketValue)
                 }
             }
         }

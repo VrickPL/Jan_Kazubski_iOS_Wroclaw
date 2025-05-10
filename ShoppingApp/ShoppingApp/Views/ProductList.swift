@@ -15,6 +15,8 @@ struct ProductList: View {
             Text("The product list is empty.")
                 .font(.headline)
                 .padding()
+                .accessibilityLabel("Empty product list")
+                .accessibilityHint("There are no products to display.")
         } else {
             ScrollView {
                 LazyVStack(spacing: 16) {

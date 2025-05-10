@@ -18,11 +18,15 @@ struct ProductView: View {
             productImage
                 .frame(width: 130)
                 .clipped()
+                .accessibilityHidden(true)
 
             VStack(alignment: .leading) {
                 Text(product.productDescription)
                     .font(.footnote)
                     .multilineTextAlignment(.leading)
+                    .accessibilityLabel("Product")
+                    .accessibilityValue(product.productDescription)
+                    .accessibilitySortPriority(6)
 
                 Spacer()
 
@@ -34,6 +38,7 @@ struct ProductView: View {
         .overlay(favoriteButton, alignment: .topLeading)
         .background(Color.yellow.opacity(0.1))
         .cornerRadius(10)
+        .accessibilityElement(children: .contain)
     }
     
     private var productImage: some View {
@@ -47,11 +52,15 @@ struct ProductView: View {
         VStack(alignment: .leading, spacing: 2) {
             if let promotion = product.theBiggestDiscountPromotionEntity {
                 promotionView(for: promotion)
+                    .accessibilitySortPriority(5)
             } else {
                 Text(product.price)
                     .font(.title3)
                     .bold()
                     .foregroundColor(.red)
+                    .accessibilityLabel("Price")
+                    .accessibilityValue(product.price)
+                    .accessibilitySortPriority(5)
             }
             quantityControl
         }
@@ -68,10 +77,14 @@ struct ProductView: View {
                         .bold()
                         .foregroundColor(.red)
                         .strikethrough()
+                        .accessibilityLabel("Original price")
+                        .accessibilityValue(product.price)
                     Text("-\(promotion.value)")
                         .font(.title3)
                         .bold()
                         .foregroundColor(.red)
+                        .accessibilityLabel("Discount")
+                        .accessibilityValue("\(promotion.value) off")
                 }
             case .discount:
                 HStack(spacing: 8) {
@@ -79,10 +92,14 @@ struct ProductView: View {
                         .font(.title3)
                         .bold()
                         .foregroundColor(.red)
+                        .accessibilityLabel("Discounted price")
+                        .accessibilityValue(promotion.value)
                     Text(product.price)
                         .font(.footnote)
                         .foregroundColor(.gray)
                         .strikethrough()
+                        .accessibilityLabel("Original price")
+                        .accessibilityValue(product.price)
                 }
             }
         } else {
@@ -90,6 +107,8 @@ struct ProductView: View {
                 .font(.title3)
                 .bold()
                 .foregroundColor(.red)
+                .accessibilityLabel("Price")
+                .accessibilityValue(product.price)
         }
     }
     
@@ -107,6 +126,9 @@ struct ProductView: View {
                     .frame(maxWidth: .infinity, maxHeight: 30)
                     .background(Color.yellow.opacity(0.5))
             }
+            .accessibilityLabel("Decrease quantity")
+            .accessibilityHint("Tap to decrease the quantity of \(product.productDescription)")
+            .accessibilitySortPriority(2)
             .disabled(product.quantityInCart <= 0)
             
             Text("\(product.quantityInCart)")
@@ -114,6 +136,9 @@ struct ProductView: View {
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: 30)
                 .background(Color.white)
+                .accessibilityLabel("Quantity")
+                .accessibilityValue("\(product.quantityInCart)")
+                .accessibilitySortPriority(3)
             
             Button {
                 if product.quantityInCart < product.inStock {
@@ -127,9 +152,13 @@ struct ProductView: View {
                     .frame(maxWidth: .infinity, maxHeight: 30)
                     .background(Color.yellow)
             }
+            .accessibilityLabel("Increase quantity")
+            .accessibilityHint("Tap to increase the quantity of \(product.productDescription)")
+            .accessibilitySortPriority(1)
             .disabled(product.quantityInCart >= product.inStock)
         }
         .clipShape(RoundedRectangle(cornerRadius: 5))
+        .accessibilityElement(children: .contain)
     }
     
     private var favoriteButton: some View {
@@ -143,6 +172,9 @@ struct ProductView: View {
                 .background(Circle().foregroundStyle(Color.backgroundPrimary))
         }
         .padding(3)
+        .accessibilityLabel(product.isFavorite ? "Remove from favorites" : "Add to favorites")
+        .accessibilityHint("Double-tap to toggle favorite status for \(product.productDescription).")
+        .accessibilitySortPriority(4)
     }
 }
 

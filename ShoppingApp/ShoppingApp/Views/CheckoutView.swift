@@ -41,6 +41,8 @@ struct CheckoutView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Text(basketValue)
                         .fontWeight(.bold)
+                        .accessibilityLabel("Total basket value")
+                        .accessibilityValue(basketValue)
                 }
             }
             .alert("Basket Items", isPresented: $isShowingAlert) {
@@ -59,6 +61,8 @@ struct CheckoutView: View {
                 Spacer()
                 Text("Checkout")
                     .foregroundStyle(.black)
+                    .accessibilityLabel("Checkout button")
+                    .accessibilityHint("Tap to view the items in your basket.")
                 Spacer()
             }
             .padding(12)
