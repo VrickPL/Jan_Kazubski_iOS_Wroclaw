@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ProductList: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query(sort: \ProductEntity.productDescription) private var storedProducts: [ProductEntity]
+    
     @StateObject private var viewModel = ProductListViewModel()
     
     var body: some View {
@@ -21,12 +25,12 @@ struct ProductList: View {
                     }
                 } else if let error = viewModel.error {
                     ErrorView(error: error, onRetry: viewModel.refreshProducts)
-                } else if viewModel.products.isEmpty {
+                } else if storedProducts.isEmpty {
                     //TODO: show info
                 } else {
                     ScrollView {
                         LazyVStack(spacing: 16) {
-                            ForEach(viewModel.products) { product in
+                            ForEach(storedProducts) { product in
                                 ProductView(product: product)
                             }
                         }
@@ -37,7 +41,19 @@ struct ProductList: View {
             .navigationTitle("Browse")
         }
         .onAppear {
-            viewModel.loadProductsIfNeeded()
+            storeProductsIfNeeded()
+        }
+    }
+    
+    private func storeProductsIfNeeded() {
+        if storedProducts.isEmpty {
+            viewModel.loadProducts()
+            
+            for product in viewModel.products {
+                modelContext.insert(product)
+            }
+
+            try? modelContext.save()
         }
     }
 }
