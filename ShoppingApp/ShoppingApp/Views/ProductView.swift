@@ -45,7 +45,7 @@ struct ProductView: View {
     
     private var priceAndQuantity: some View {
         VStack(alignment: .leading, spacing: 2) {
-            if let promotion = product.promotions.first {
+            if let promotion = product.theBiggestDiscountPromotionEntity {
                 promotionView(for: promotion)
             } else {
                 Text(product.price)

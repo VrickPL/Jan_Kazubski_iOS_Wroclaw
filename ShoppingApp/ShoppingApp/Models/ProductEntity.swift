@@ -66,4 +66,43 @@ extension ProductEntity {
             quantityInCart: 0
         )
     }
+    
+    var numericPrice: Double {
+        let priceWithoutCurrency = price.split(separator: " ").first ?? "0.0"
+        return Double(priceWithoutCurrency) ?? 0.0
+    }
+    
+    var discountedPrice: Double {
+        return theBiggestDiscount ?? numericPrice
+    }
+    
+    var theBiggestDiscount: Double? {
+        let defaultPrice = numericPrice
+        
+        return promotions
+            .map { $0.discountedPrice(defaultPrice: defaultPrice) }
+            .min()
+    }
+    
+    var theBiggestDiscountPromotionEntity: PromotionEntity? {
+        let defaultPrice = numericPrice
+
+        return promotions.min(by: { $0.discountedPrice(defaultPrice: defaultPrice) < $1.discountedPrice(defaultPrice: defaultPrice) })
+    }
+}
+
+extension PromotionEntity {
+    func discountedPrice(defaultPrice: Double) -> Double {
+        switch PromotionType(rawValue: type) {
+        case .discount:
+            return Double(value.split(separator: " ").first ?? "0.0") ?? 0.0
+            
+        case .percentage:
+            let percentage = Double(value.replacingOccurrences(of: "%", with: "")) ?? 0.0
+            return defaultPrice * (1 - percentage / 100)
+            
+        case .none:
+            return defaultPrice
+        }
+    }
 }

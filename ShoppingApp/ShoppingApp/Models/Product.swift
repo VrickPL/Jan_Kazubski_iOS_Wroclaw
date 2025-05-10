@@ -40,4 +40,3 @@ enum PromotionType: String, Decodable {
     case discount
     case percentage
 }
-

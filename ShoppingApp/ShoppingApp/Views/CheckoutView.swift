@@ -16,6 +16,10 @@ struct CheckoutView: View {
     
     @State private var isShowingAlert = false
     
+    var basketValue: String {
+        BasketCalculator.calculateTotalValue(for: storedProducts)
+    }
+    
     var basketProductIDs: String {
         storedProducts
             .map { "\($0.id)" }
@@ -32,6 +36,13 @@ struct CheckoutView: View {
                 }
             }
             .navigationTitle("Checkout")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Text(basketValue)
+                        .fontWeight(.bold)
+                }
+            }
             .alert("Basket Items", isPresented: $isShowingAlert) {
                 Button("OK", role: .cancel) { }
             } message: {

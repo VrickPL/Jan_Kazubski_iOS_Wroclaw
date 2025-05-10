@@ -14,6 +14,10 @@ struct BrowseView: View {
     
     @StateObject private var viewModel = BrowseViewModel()
     
+    var basketValue: String {
+        BasketCalculator.calculateTotalValue(for: storedProducts)
+    }
+    
     var body: some View {
         NavigationView {
             Group {
@@ -30,6 +34,13 @@ struct BrowseView: View {
                 }
             }
             .navigationTitle("Browse")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Text(basketValue)
+                        .fontWeight(.bold)
+                }
+            }
         }
         .onAppear {
             storeProductsIfNeeded()
