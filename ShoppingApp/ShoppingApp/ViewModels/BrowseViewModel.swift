@@ -7,12 +7,12 @@
 
 import Foundation
 
-final class BrowseViewModel: ObservableObject {
+class BrowseViewModel: ObservableObject {
     @Published var products: [ProductEntity] = []
     @Published var error: Error? = nil
     @Published var isLoading = false
     
-    var fileLoader: (String, String) throws -> Data = { resource, fileExtension in
+    private var fileLoader: (String, String) throws -> Data = { resource, fileExtension in
         guard let url = Bundle.main.url(forResource: resource, withExtension: fileExtension) else {
             throw ProductListError.missingFile
         }
@@ -24,7 +24,6 @@ final class BrowseViewModel: ObservableObject {
     }
     
     func loadProducts(forResource resource: String = "items", fileURL: URL? = nil) {
-        guard !isLoading else { return }
         self.isLoading = true
         
         do {

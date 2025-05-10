@@ -12,9 +12,13 @@ struct BrowseView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \ProductEntity.productDescription) private var storedProducts: [ProductEntity]
     
-    @StateObject private var viewModel = BrowseViewModel()
+    @StateObject private var viewModel: BrowseViewModel
     
-    var basketValue: String {
+    init(viewModel: BrowseViewModel = BrowseViewModel()) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
+    private var basketValue: String {
         BasketCalculator.calculateTotalValue(for: storedProducts)
     }
     
