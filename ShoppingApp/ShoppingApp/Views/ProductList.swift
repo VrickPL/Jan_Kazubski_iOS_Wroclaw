@@ -8,38 +8,26 @@
 import SwiftUI
 
 struct ProductList: View {
-    @StateObject private var viewModel = ProductListViewModel()
+    var products: [ProductEntity]
     
     var body: some View {
-        NavigationView {
-            Group {
-                if viewModel.isLoading {
-                    VStack {
-                        ProgressView()
-                            .padding()
-                        Spacer()
-                    }
-                } else if let error = viewModel.error {
-                    ErrorView(error: error, onRetry: viewModel.refreshProducts)
-                } else {
-                    ScrollView {
-                        LazyVStack(spacing: 16) {
-                            ForEach(viewModel.products) { product in
-                                ProductView(product: product)
-                            }
-                        }
-                        .padding()
+        if products.isEmpty {
+            Text("The product list is empty.")
+                .font(.headline)
+                .padding()
+        } else {
+            ScrollView {
+                LazyVStack(spacing: 16) {
+                    ForEach(products) { product in
+                        ProductView(product: product)
                     }
                 }
+                .padding()
             }
-            .navigationTitle("Browse")
-        }
-        .onAppear {
-            viewModel.loadProductsIfNeeded()
         }
     }
 }
 
 #Preview {
-    ProductList()
+    ProductList(products: [])
 }

@@ -1,5 +1,5 @@
 //
-//  ProductListViewModel.swift
+//  BrowseViewModel.swift
 //  ShoppingApp
 //
 //  Created by Jan Kazubski on 09/05/2025.
@@ -7,16 +7,10 @@
 
 import Foundation
 
-final class ProductListViewModel: ObservableObject {
-    @Published var products: [Product] = []
+final class BrowseViewModel: ObservableObject {
+    @Published var products: [ProductEntity] = []
     @Published var error: Error? = nil
     @Published var isLoading = false
-    
-    func loadProductsIfNeeded() {
-        if !products.isEmpty { return }
-
-        loadProducts()
-    }
     
     func refreshProducts() {
         self.products = []
@@ -24,7 +18,7 @@ final class ProductListViewModel: ObservableObject {
         loadProducts()
     }
     
-    private func loadProducts() {
+    func loadProducts() {
         guard !isLoading else { return }
         self.isLoading = true
 
@@ -38,15 +32,12 @@ final class ProductListViewModel: ObservableObject {
             let data = try Data(contentsOf: url)
             let response = try JSONDecoder().decode(ProductResponse.self, from: data)
             
-            DispatchQueue.main.async {
-                self.products = response.items
-                self.isLoading = false
-            }
+            let entities = response.items.map { ProductEntity(from: $0) }
+            self.products = entities
+            self.isLoading = false
         } catch {
-            DispatchQueue.main.async {
-                self.error = error
-                self.isLoading = false
-            }
+            self.error = error
+            self.isLoading = false
         }
     }
 }

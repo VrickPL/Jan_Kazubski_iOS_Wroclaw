@@ -6,17 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ProductView: View {
-    @State private var quantity = 0
-    @State private var isFavorite: Bool
+    @Environment(\.modelContext) private var modelContext
 
-    let product: Product
-
-    init(product: Product) {
-        self.product = product
-        self._isFavorite = State(initialValue: product.isFavorite)
-    }
+    let product: ProductEntity
 
     var body: some View {
         HStack(spacing: 0) {
@@ -25,7 +20,7 @@ struct ProductView: View {
                 .clipped()
 
             VStack(alignment: .leading) {
-                Text(product.description)
+                Text(product.productDescription)
                     .font(.footnote)
                     .multilineTextAlignment(.leading)
 
@@ -51,82 +46,98 @@ struct ProductView: View {
     private var priceAndQuantity: some View {
         VStack(alignment: .leading, spacing: 2) {
             if let promotion = product.promotions.first {
-                switch promotion.type {
-                case .percentage:
-                    HStack(spacing: 8) {
-                        Text(product.price)
-                            .font(.title3)
-                            .bold()
-                            .foregroundColor(.red)
-                            .strikethrough()
-                        
-                        Text("-\(promotion.value)")
-                            .font(.title3)
-                            .bold()
-                            .foregroundColor(.red)
-                    }
-                case .discount:
-                    HStack(spacing: 8) {
-                        Text(promotion.value)
-                            .font(.title3)
-                            .bold()
-                            .foregroundColor(.red)
-                        
-                        Text(product.price)
-                            .font(.footnote)
-                            .foregroundColor(.gray)
-                            .strikethrough()
-                    }
-                }
+                promotionView(for: promotion)
             } else {
                 Text(product.price)
                     .font(.title3)
                     .bold()
                     .foregroundColor(.red)
             }
-
-            HStack(spacing: 0) {
-                Button {
-                    if quantity > 0 {
-                        quantity -= 1
-                    }
-                } label: {
-                    Image(systemName: "minus")
-                        .foregroundStyle(.black)
+            quantityControl
+        }
+    }
+    
+    @ViewBuilder
+    private func promotionView(for promotion: PromotionEntity) -> some View {
+        if let promotionType = PromotionType(rawValue: promotion.type) {
+            switch promotionType {
+            case .percentage:
+                HStack(spacing: 8) {
+                    Text(product.price)
+                        .font(.title3)
                         .bold()
-                        .frame(maxWidth: .infinity, maxHeight: 30)
-                        .background(Color.yellow.opacity(0.5))
+                        .foregroundColor(.red)
+                        .strikethrough()
+                    Text("-\(promotion.value)")
+                        .font(.title3)
+                        .bold()
+                        .foregroundColor(.red)
                 }
-                .disabled(quantity == 0)
-                
-                Text("\(quantity)")
+            case .discount:
+                HStack(spacing: 8) {
+                    Text(promotion.value)
+                        .font(.title3)
+                        .bold()
+                        .foregroundColor(.red)
+                    Text(product.price)
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                        .strikethrough()
+                }
+            }
+        } else {
+            Text(product.price)
+                .font(.title3)
+                .bold()
+                .foregroundColor(.red)
+        }
+    }
+    
+    private var quantityControl: some View {
+        HStack(spacing: 0) {
+            Button {
+                if product.quantityInCart > 0 {
+                    product.quantityInCart -= 1
+                    try? modelContext.save()
+                }
+            } label: {
+                Image(systemName: "minus")
                     .foregroundStyle(.black)
                     .bold()
                     .frame(maxWidth: .infinity, maxHeight: 30)
-                    .background(Color.white)
-                
-                Button {
-                    if quantity < product.inStock {
-                        quantity += 1
-                    }
-                } label: {
-                    Image(systemName: "plus")
-                        .foregroundStyle(.black)
-                        .bold()
-                        .frame(maxWidth: .infinity, maxHeight: 30)
-                        .background(Color.yellow)
-                }
-                .disabled(quantity >= product.inStock)
+                    .background(Color.yellow.opacity(0.5))
             }
-            .clipShape(RoundedRectangle(cornerRadius: 5))
+            .disabled(product.quantityInCart <= 0)
+            
+            Text("\(product.quantityInCart)")
+                .foregroundStyle(.black)
+                .bold()
+                .frame(maxWidth: .infinity, maxHeight: 30)
+                .background(Color.white)
+            
+            Button {
+                if product.quantityInCart < product.inStock {
+                    product.quantityInCart += 1
+                    try? modelContext.save()
+                }
+            } label: {
+                Image(systemName: "plus")
+                    .foregroundStyle(.black)
+                    .bold()
+                    .frame(maxWidth: .infinity, maxHeight: 30)
+                    .background(Color.yellow)
+            }
+            .disabled(product.quantityInCart >= product.inStock)
         }
+        .clipShape(RoundedRectangle(cornerRadius: 5))
     }
     
     private var favoriteButton: some View {
         Button {
-            isFavorite.toggle()
+            product.isFavorite.toggle()
+            try? modelContext.save()
         } label: {
-            Image(systemName: isFavorite ? "heart.fill" : "heart")
+            Image(systemName: product.isFavorite ? "heart.fill" : "heart")
                 .foregroundColor(.blue)
                 .padding(4)
                 .background(Circle().foregroundStyle(Color.backgroundPrimary))
@@ -153,13 +164,17 @@ private struct ProductImage: View {
 }
 
 #Preview {
-    ProductView(product: Product(
-        id: "f0e9d8c7-b6a5-4321-fedc-ba9876543210",
-        description: "Stainless Steel Water Bottle",
-        price: "22.50 £",
-        promotions: [Promotion(type: PromotionType.discount, value: "5.00 £")],
-        isFavorite: false,
-        inStock: 120,
-        imageName: "bottle.png"
-    ))
+    ProductView(
+        product: ProductEntity(
+            from: Product(
+                id: "f0e9d8c7-b6a5-4321-fedc-ba9876543210",
+                description: "Stainless Steel Water Bottle",
+                price: "22.50 £",
+                promotions: [Promotion(type: PromotionType.discount, value: "5.00 £")],
+                isFavorite: false,
+                inStock: 120,
+                imageName: "bottle.png"
+            )
+        )
+    )
 }
