@@ -16,11 +16,11 @@ struct CheckoutView: View {
     
     @State private var isShowingAlert = false
     
-    var basketValue: String {
+    private var basketValue: String {
         BasketCalculator.calculateTotalValue(for: storedProducts)
     }
     
-    var basketProductIDs: String {
+    private var basketProductIDs: String {
         storedProducts
             .map { "\($0.id)" }
             .joined(separator: ", ")
@@ -53,7 +53,7 @@ struct CheckoutView: View {
         }
     }
     
-    var checkoutButton: some View {
+    private var checkoutButton: some View {
         Button {
             isShowingAlert = true
         } label: {

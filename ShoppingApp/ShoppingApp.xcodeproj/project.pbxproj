@@ -6,14 +6,34 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5BDD9E6E2DCF7DF600C5B077 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 5BDD9E6D2DCF7DF600C5B077 /* ViewInspector */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5BDD9E0F2DCF55B500C5B077 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B2134102DCE7F92007D300E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B2134172DCE7F92007D300E;
+			remoteInfo = ShoppingApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		5B2134182DCE7F92007D300E /* ShoppingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BDD9E0B2DCF55B500C5B077 /* ShoppingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShoppingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5B21341A2DCE7F92007D300E /* ShoppingApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ShoppingApp;
+			sourceTree = "<group>";
+		};
+		5BDD9E0C2DCF55B500C5B077 /* ShoppingAppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ShoppingAppTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -26,6 +46,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5BDD9E082DCF55B500C5B077 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BDD9E6E2DCF7DF600C5B077 /* ViewInspector in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -33,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				5B21341A2DCE7F92007D300E /* ShoppingApp */,
+				5BDD9E0C2DCF55B500C5B077 /* ShoppingAppTests */,
+				5BDD9E6C2DCF7DF600C5B077 /* Frameworks */,
 				5B2134192DCE7F92007D300E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,8 +71,16 @@
 			isa = PBXGroup;
 			children = (
 				5B2134182DCE7F92007D300E /* ShoppingApp.app */,
+				5BDD9E0B2DCF55B500C5B077 /* ShoppingAppTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5BDD9E6C2DCF7DF600C5B077 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -70,6 +108,30 @@
 			productReference = 5B2134182DCE7F92007D300E /* ShoppingApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		5BDD9E0A2DCF55B500C5B077 /* ShoppingAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5BDD9E132DCF55B500C5B077 /* Build configuration list for PBXNativeTarget "ShoppingAppTests" */;
+			buildPhases = (
+				5BDD9E072DCF55B500C5B077 /* Sources */,
+				5BDD9E082DCF55B500C5B077 /* Frameworks */,
+				5BDD9E092DCF55B500C5B077 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5BDD9E102DCF55B500C5B077 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5BDD9E0C2DCF55B500C5B077 /* ShoppingAppTests */,
+			);
+			name = ShoppingAppTests;
+			packageProductDependencies = (
+				5BDD9E6D2DCF7DF600C5B077 /* ViewInspector */,
+			);
+			productName = ShoppingAppTests;
+			productReference = 5BDD9E0B2DCF55B500C5B077 /* ShoppingAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -83,6 +145,10 @@
 					5B2134172DCE7F92007D300E = {
 						CreatedOnToolsVersion = 16.3;
 					};
+					5BDD9E0A2DCF55B500C5B077 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 5B2134172DCE7F92007D300E;
+					};
 				};
 			};
 			buildConfigurationList = 5B2134132DCE7F92007D300E /* Build configuration list for PBXProject "ShoppingApp" */;
@@ -94,18 +160,29 @@
 			);
 			mainGroup = 5B21340F2DCE7F92007D300E;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5BDD9E672DCF7D6D00C5B077 /* XCRemoteSwiftPackageReference "ViewInspector" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5B2134192DCE7F92007D300E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				5B2134172DCE7F92007D300E /* ShoppingApp */,
+				5BDD9E0A2DCF55B500C5B077 /* ShoppingAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5B2134162DCE7F92007D300E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5BDD9E092DCF55B500C5B077 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +199,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5BDD9E072DCF55B500C5B077 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5BDD9E102DCF55B500C5B077 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B2134172DCE7F92007D300E /* ShoppingApp */;
+			targetProxy = 5BDD9E0F2DCF55B500C5B077 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		5B2134212DCE7F93007D300E /* Debug */ = {
@@ -304,6 +396,44 @@
 			};
 			name = Release;
 		};
+		5BDD9E112DCF55B500C5B077 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3T4T56NWV6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jkazubski.ShoppingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShoppingApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ShoppingApp";
+			};
+			name = Debug;
+		};
+		5BDD9E122DCF55B500C5B077 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3T4T56NWV6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jkazubski.ShoppingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShoppingApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ShoppingApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -325,7 +455,35 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		5BDD9E132DCF55B500C5B077 /* Build configuration list for PBXNativeTarget "ShoppingAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5BDD9E112DCF55B500C5B077 /* Debug */,
+				5BDD9E122DCF55B500C5B077 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5BDD9E672DCF7D6D00C5B077 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5BDD9E6D2DCF7DF600C5B077 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5BDD9E672DCF7D6D00C5B077 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5B2134102DCE7F92007D300E /* Project object */;
 }
