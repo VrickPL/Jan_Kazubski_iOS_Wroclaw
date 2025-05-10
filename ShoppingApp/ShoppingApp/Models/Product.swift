@@ -36,7 +36,7 @@ struct Promotion: Decodable {
     let value: String
 }
 
-enum PromotionType: String, Decodable {
+enum PromotionType: String, Decodable, CaseIterable {
     case discount
     case percentage
 }
