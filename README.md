@@ -70,14 +70,14 @@ The Checkout view allows users to review products added to their basket. Each pr
 
 
 ## Test coverage
-The tests cover 92.2% of the application. A total of 72 tests were written to ensure that the app runs smoothly without unintended issues and functions correctly. XCTest and ViewInspector were used for testing.
-
+The tests cover 91.9% of the application. A total of 74 tests were written to ensure that the app runs smoothly without unintended issues and functions correctly. XCTest and ViewInspector were used for testing.
 
 
 <p align="center"> 
-  <img src="https://github.com/user-attachments/assets/0b571ab0-9152-46fa-8e33-6105def37f50">
-  <img src="https://github.com/user-attachments/assets/0541717f-1be7-451d-8220-a23f89965d92">
+  <img src="https://github.com/user-attachments/assets/7a027183-6755-41d8-bb19-8c75bcc0c365">
+  <img src="https://github.com/user-attachments/assets/bd436d81-ddd3-4e09-a68a-7c22f5ced6ed">
 </p>
+
 
 
 
