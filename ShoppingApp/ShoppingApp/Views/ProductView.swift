@@ -36,7 +36,7 @@ struct ProductView: View {
         }
         .frame(height: 150)
         .overlay(favoriteButton, alignment: .topLeading)
-        .background(Color.yellow.opacity(0.1))
+        .background(Color.yellow.opacity(0.2))
         .cornerRadius(10)
         .accessibilityElement(children: .contain)
     }

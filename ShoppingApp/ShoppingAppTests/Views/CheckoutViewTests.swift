@@ -16,7 +16,7 @@ final class CheckoutViewTests: XCTestCase {
         let inspectedView = try view.inspect()
         
         let emptyText = try inspectedView
-            .navigationView()
+            .navigationStack()
             .find(ViewType.Text.self) { text in
                 let label = try? text.accessibilityLabel().string()
                 return label == "Empty product list"

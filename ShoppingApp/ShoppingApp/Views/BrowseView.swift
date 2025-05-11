@@ -23,7 +23,7 @@ struct BrowseView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Group {
                 if viewModel.isLoading {
                     VStack {

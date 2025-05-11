@@ -10,6 +10,10 @@ import SwiftUI
 struct ProductList: View {
     var products: [ProductEntity]
     
+    private let columns: [GridItem] = [
+        GridItem(.adaptive(minimum: 400), spacing: 16)
+    ]
+    
     var body: some View {
         if products.isEmpty {
             Text("The product list is empty.")
@@ -19,7 +23,7 @@ struct ProductList: View {
                 .accessibilityHint("There are no products to display.")
         } else {
             ScrollView {
-                LazyVStack(spacing: 16) {
+                LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(products) { product in
                         ProductView(product: product)
                     }

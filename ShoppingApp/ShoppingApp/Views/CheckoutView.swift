@@ -27,7 +27,7 @@ struct CheckoutView: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 ProductList(products: storedProducts)
                 

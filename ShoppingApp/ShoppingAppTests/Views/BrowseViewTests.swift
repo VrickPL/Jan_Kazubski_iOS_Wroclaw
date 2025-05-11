@@ -18,7 +18,7 @@ final class BrowseViewTests: XCTestCase {
         let inspectedView = try view.inspect()
         
         let progressView = try inspectedView
-            .navigationView()
+            .navigationStack()
             .group(0)
             .vStack(0)
             .find(ViewType.ProgressView.self) { view in
@@ -38,7 +38,7 @@ final class BrowseViewTests: XCTestCase {
         let inspectedView = try view.inspect()
         
         let errorView = try inspectedView
-            .navigationView()
+            .navigationStack()
             .group(0)
             .find(ErrorView.self)
         let errorDetail = try errorView.vStack().text(1).string()
@@ -53,7 +53,7 @@ final class BrowseViewTests: XCTestCase {
         let inspectedView = try view.inspect()
         
         let emptyText = try inspectedView
-            .navigationView()
+            .navigationStack()
             .group(0)
             .find(ViewType.Text.self) { text in
                 let label = try? text.accessibilityLabel().string()
