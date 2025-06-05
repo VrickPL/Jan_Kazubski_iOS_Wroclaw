@@ -24,24 +24,33 @@ class BrowseViewModel: ObservableObject {
     }
     
     func loadProducts(forResource resource: String = "items", fileURL: URL? = nil) {
-        self.isLoading = true
-        
-        do {
-            let data: Data
-            if let url = fileURL {
-                data = try Data(contentsOf: url)
-            } else {
-                data = try fileLoader(resource, "json")
-            }
-            let response = try JSONDecoder().decode(ProductResponse.self, from: data)
-            
-            self.products = response.items.map { ProductEntity(from: $0) }
-            self.error = nil
-        } catch {
-            self.error = error
+        DispatchQueue.main.async {
+            self.isLoading = true
         }
         
-        self.isLoading = false
+        DispatchQueue.global(qos: .background).async {
+            do {
+                let data: Data
+                if let url = fileURL {
+                    data = try Data(contentsOf: url)
+                } else {
+                    data = try self.fileLoader(resource, "json")
+                }
+                let response = try JSONDecoder().decode(ProductResponse.self, from: data)
+                let fetchedProducts = response.items.map { ProductEntity(from: $0) }
+                
+                DispatchQueue.main.async {
+                    self.products = fetchedProducts
+                    self.error = nil
+                    self.isLoading = false
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.error = error
+                    self.isLoading = false
+                }
+            }
+        }
     }
 }
 
