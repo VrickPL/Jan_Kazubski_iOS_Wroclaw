@@ -1,5 +1,6 @@
-<h1 align="center">Jan_Kazubski_iOS_Wroclaw</h1>
-<h3 align="center">This iOS app was developed as part of the recruitment process for an iOS internship at Ocado in Wrocław</h3>
+<h1 align="center">ShoppingApp</h1>
+<h3 align="center">Shopping iOS app to enhance my unit test skills</h3>
+Shopping App is an innovative iOS application that not only offers an engaging user experience through its use of SwiftUI and robust local data management with SwiftData, but also prides itself on having unit tests as the cornerstone of its development process. From the moment the app launches, product data is efficiently loaded from a JSON file and image assets are stored locally for quick access. While the intuitive interface makes browsing products and adding them to the cart a seamless experience, the development team has placed a strong emphasis on quality by integrating comprehensive unit testing. Leveraging XCTest and ViewInspector, the unit tests ensure every feature functions reliably and helps maintain a high standard throughout the project.
 
 
 ## Table of Contents
