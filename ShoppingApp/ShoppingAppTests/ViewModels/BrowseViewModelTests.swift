@@ -12,13 +12,14 @@ final class BrowseViewModelTests: XCTestCase {
     let fileName = "tempItem"
     let fileExtension = "json"
     
-    var fullFileName: String {
-        "\(fileName).\(fileExtension)"
+    private func fullFileName() -> String {
+        return "\(fileName)_\(UUID().uuidString).\(fileExtension)"
     }
     
     private func writeTemporaryFile(with content: String) -> URL {
         let tempDir = NSTemporaryDirectory()
-        let fileURL = URL(fileURLWithPath: tempDir).appendingPathComponent(fullFileName)
+        let name = fullFileName()
+        let fileURL = URL(fileURLWithPath: tempDir).appendingPathComponent(name)
         try? content.write(to: fileURL, atomically: true, encoding: .utf8)
         return fileURL
     }
@@ -54,6 +55,12 @@ final class BrowseViewModelTests: XCTestCase {
         let tempURL = writeTemporaryFile(with: validJSON)
         let viewModel = BrowseViewModel()
         viewModel.loadProducts(forResource: fileName, fileURL: tempURL)
+        
+        let expectation = self.expectation(description: "loadProducts completes")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
         
         XCTAssertEqual(viewModel.products.count, 1)
         XCTAssertNil(viewModel.error)
@@ -95,15 +102,29 @@ final class BrowseViewModelTests: XCTestCase {
         
         viewModel.loadProducts(forResource: fileName, fileURL: tempURL)
         
+        let expectation = self.expectation(description: "loadProducts completes")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+        
         XCTAssertEqual(viewModel.products.count, 1)
         XCTAssertNil(viewModel.error)
         XCTAssertFalse(viewModel.isLoading)
+        
+        removeTemporaryFile(at: tempURL)
     }
     
     func testLoadProductsMissingFile() {
         let viewModel = BrowseViewModel()
         viewModel.loadProducts(forResource: fileName)
 
+        let expectation = self.expectation(description: "loadProducts completes")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+        
         XCTAssertTrue(viewModel.products.isEmpty)
         XCTAssertTrue(viewModel.error is ProductListError)
         XCTAssertEqual(viewModel.error as! ProductListError, ProductListError.missingFile)
@@ -115,6 +136,12 @@ final class BrowseViewModelTests: XCTestCase {
         let tempURL = writeTemporaryFile(with: invalidJSON)
         let viewModel = BrowseViewModel()
         viewModel.loadProducts(fileURL: tempURL)
+        
+        let expectation = self.expectation(description: "loadProducts completes")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
         
         XCTAssertTrue(viewModel.products.isEmpty)
         XCTAssertNotNil(viewModel.error)

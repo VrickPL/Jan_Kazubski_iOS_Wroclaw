@@ -1,6 +1,9 @@
 <h1 align="center">ShoppingApp</h1>
 <h3 align="center">Shopping iOS app to enhance my unit test skills</h3>
-Shopping App is an innovative iOS application that not only offers an engaging user experience through its use of SwiftUI and robust local data management with SwiftData, but also prides itself on having unit tests as the cornerstone of its development process. From the moment the app launches, product data is efficiently loaded from a JSON file and image assets are stored locally for quick access. While the intuitive interface makes browsing products and adding them to the cart a seamless experience, the development team has placed a strong emphasis on quality by integrating comprehensive unit testing. Leveraging XCTest and ViewInspector, the unit tests ensure every feature functions reliably and helps maintain a high standard throughout the project.
+Shopping App is an iOS application that not only offers an engaging user experience through its use of SwiftUI and local data management with SwiftData, but also prides itself on having unit tests as the cornerstone of its development process. From the moment the app launches, product data is efficiently loaded from a JSON file on a background thread and image assets are stored locally for quick access. Featuring an intuitive interface that ensures seamless product browsing and effortless cart additions, the application upholds exceptional quality through comprehensive unit testing. Leveraging XCTest and ViewInspector, the unit tests ensure every feature functions reliably and helps maintain a high standard throughout the project. The application is designed with accessibility in mind. System colors are used to assist those with color blindness, and system fonts allow for user adjustments. Navigation via VoiceOver works smoothly.
+
+
+
 
 
 ## Table of Contents
@@ -29,7 +32,7 @@ Shopping App is an innovative iOS application that not only offers an engaging u
 
 
 ## General info
-Upon first launch, the application imports data from `items.json` into **SwiftData**—which manages all of the app's logic—while images are stored in the app's assets for efficient resource management. The interface is designed to look great on both large and small screens with seamless support for device rotation, both light and dark modes are carefully optimized. The app supports the two latest versions of iOS — 17 and 18 — and is built using the **MVVM** architecture.
+Upon first launch, the application imports data from `items.json` into **SwiftData**—which manages all of the app's logic—while images are stored in the app's assets for efficient resource management. The data is loaded on a background thread to ensure smooth performance and responsiveness from the beginning. The interface is designed to look great on both large and small screens with seamless support for device rotation, both light and dark modes are carefully optimized. The app supports the two latest versions of iOS — 17 and 18 — and is built using the **MVVM** architecture. Additionally, the app is crafted with **accessibility** in mind, featuring support for **VoiceOver**, *dynamic type*, and *system colors* to enhance usability for all users.
 
 
 
@@ -56,15 +59,6 @@ The Checkout view allows users to review products added to their basket. Each pr
   <img src="https://github.com/user-attachments/assets/61d0018e-0d05-4ad3-9281-5136d0b0f5dd">
   <img src="https://github.com/user-attachments/assets/dc8ab111-ea68-4da5-a503-dc51f22b2eb5">
 </p>
-
-
-
-## Bonus tasks
-- The ability to add items to the basket is limited by the inStock variable, ensuring that a user cannot order less than 0 or more than what is available in stock.
-- Both screens display the current basket value in the upper right corner of the navigation bar.
-- App data is stored locally within the application using SwiftData.
-- The application is designed with accessibility in mind. System colors are used to assist those with color blindness, and system fonts allow for user adjustments. Navigation via VoiceOver works smoothly.
-
 
 
 
