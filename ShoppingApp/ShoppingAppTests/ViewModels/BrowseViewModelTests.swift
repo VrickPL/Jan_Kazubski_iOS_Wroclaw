@@ -55,7 +55,6 @@ final class BrowseViewModelTests: XCTestCase {
         let tempURL = writeTemporaryFile(with: validJSON)
         let viewModel = BrowseViewModel()
         viewModel.loadProducts(forResource: fileName, fileURL: tempURL)
-        print(tempURL)
         
         let expectation = self.expectation(description: "loadProducts completes")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
